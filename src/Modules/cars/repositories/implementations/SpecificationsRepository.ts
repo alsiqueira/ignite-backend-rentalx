@@ -5,8 +5,17 @@ import { ICreateSpecificationDTO, ISpecificationsRepository } from "../ISpecific
 class SpecificationsRepository implements ISpecificationsRepository {
     private specifications: Specification[]
 
-    constructor(){
-       this.specifications =[]
+    private static INSTANCE: SpecificationsRepository 
+  
+    private constructor(){
+      this.specifications = []
+    }
+  
+    public static getInstance(): SpecificationsRepository {
+      if(!SpecificationsRepository.INSTANCE){
+        SpecificationsRepository.INSTANCE = new SpecificationsRepository()
+      }
+      return SpecificationsRepository.INSTANCE
     }
     
     
@@ -26,7 +35,9 @@ class SpecificationsRepository implements ISpecificationsRepository {
         return specification
     }
 
- 
+    list(): Specification[] {
+      return this.specifications
+    }
 
 
     }
